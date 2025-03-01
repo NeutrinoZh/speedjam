@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Zenject;
 
 namespace SpeedJam
@@ -14,12 +14,12 @@ namespace SpeedJam
             _player = player;
             _playerOnGround = playerOnGround;
         }
-        
+
         private void Cling(GravitationalObject obj)
         {
             _playerOnGround.ClingObject = obj;
         }
-        
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (_player.State != Player.CharacterState.OnAir)
@@ -27,6 +27,8 @@ namespace SpeedJam
 
             if (!collision.transform.TryGetComponent(out GravitationalObject obj))
                 return;
+
+            if (obj.IsTrap) Debug.Log("Die");
 
             Cling(obj);
             _player.State = Player.CharacterState.OnGround;
