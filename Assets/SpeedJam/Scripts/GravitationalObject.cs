@@ -18,7 +18,7 @@ namespace SpeedJam
             get => _charge;
             set
             {
-                _spriteRenderer.material.SetFloat(k_Blend, value / MaxCharge);
+                _spriteRenderer.material.SetFloat(k_Blend, 1 - value / MaxCharge);
                 _charge = value;
             }
         }
