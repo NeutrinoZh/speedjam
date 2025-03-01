@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2280083695083998888}
   - component: {fileID: 830899655004561950}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: MediumAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,6 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8948a035a8948b4a88a3ef01f79d9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ForceModifier>k__BackingField: 8
-  <GravitationalField>k__BackingField: 5
+  <ForceModifier>k__BackingField: 9
+  <GravitationalField>k__BackingField: 4
   <MaxCharge>k__BackingField: 1
