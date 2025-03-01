@@ -14,6 +14,7 @@ namespace SpeedJam
         private Controls _controls;
 
         private GravitationalObject _clingObject;
+        private CircleCollider2D _clingCollider;
         private float _radius;
         private float _angle;
 
@@ -28,7 +29,9 @@ namespace SpeedJam
 
                 var offset = (transform.position - _clingObject.transform.position);
                 _angle = Mathf.Atan2(offset.y, offset.x);
-                _radius = offset.magnitude;
+                
+                _clingCollider = _clingObject.GetComponent<CircleCollider2D>();
+                _radius = _clingCollider.radius * _clingObject.transform.lossyScale.x * 1.3f;
                 
                 _isOnlyGrounded = true;
                 StartCoroutine(GroundedDelay());
@@ -77,8 +80,13 @@ namespace SpeedJam
         {
             _angle += direction * _player.SpeedOnGround * Time.deltaTime;
 
-            float x = _clingObject.transform.position.x + _radius * Mathf.Cos(_angle);
-            float y = _clingObject.transform.position.y + _radius * Mathf.Sin(_angle);
+            float x = _clingObject.transform.position.x + 
+                      _clingCollider.offset.x +
+                      _radius * Mathf.Cos(_angle);
+            
+            float y = _clingObject.transform.position.y + +
+                      _clingCollider.offset.y +
+                      _radius * Mathf.Sin(_angle);
 
             transform.position = new Vector3(x, y, transform.position.z);
             transform.rotation = Quaternion.Euler(0, 0, _angle * Mathf.Rad2Deg + 90);
