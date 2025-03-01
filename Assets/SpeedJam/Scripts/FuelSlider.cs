@@ -9,7 +9,7 @@ namespace SpeedJam
 
         private Slider _slider;
 
-        public void ChangeFuelAmount(int value)
+        public void ChangeFuelAmount(float value)
         {
             _slider.value = value;
         }
