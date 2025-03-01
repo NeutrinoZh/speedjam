@@ -33,14 +33,20 @@ namespace SpeedJam
             ApplyForces();
             
             var moveDirection = _controls.Player.Move.ReadValue<Vector2>();
-            if (moveDirection.y > 0)
+            if (
+                moveDirection.y > 0 &&
+                _rigidbody.velocity.sqrMagnitude < _player.SqrMaxSpeed &&
+                _player.JetpackCharge > 0)
             {
-                _rigidbody.AddForce(transform.forward * _player.JetpackForce, ForceMode2D.Force);
-                Debug.Log(moveDirection.y);
+                _rigidbody.AddForce(-transform.up * _player.JetpackForce, ForceMode2D.Force);
+                _player.JetpackCharge -= _player.JetpackChargeConsumptionRate * Time.fixedDeltaTime;
             }
+            else 
+                _rigidbody.AddForce(-_rigidbody.velocity.normalized * _player.Friction, ForceMode2D.Force);
             
-            float angle = Mathf.Atan2(_rigidbody.velocity.y, _rigidbody.velocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+            var euler = transform.eulerAngles;
+            var angularVelocity = -moveDirection.x * _player.AngularSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(euler.x, euler.y, euler.z + angularVelocity);
         }
 
         private void ApplyForces()
@@ -60,8 +66,6 @@ namespace SpeedJam
 
                 _rigidbody.AddForce(force, ForceMode2D.Force);
             }   
-            
-            _rigidbody.AddForce(-_rigidbody.velocity / 2f, ForceMode2D.Force);
         }
     }
 }

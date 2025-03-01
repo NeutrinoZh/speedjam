@@ -5,10 +5,8 @@ namespace SpeedJam
 {
     public class GravitationalObject : MonoBehaviour
     {
-        public float ForceModifier => _forceModifier;
-        public float GravitationalField => _gravitationalField;
-        
-        [SerializeField] private float _forceModifier;
-        [SerializeField] private float _gravitationalField;
+        [field: SerializeField] public float ForceModifier { get;private set; }
+        [field: SerializeField] public float GravitationalField { get; private set; }
+        [field: SerializeField] public float Charge { get; set; }
     }
 }
