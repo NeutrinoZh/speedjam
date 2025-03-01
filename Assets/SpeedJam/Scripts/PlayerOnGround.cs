@@ -31,7 +31,7 @@ namespace SpeedJam
                 _angle = Mathf.Atan2(offset.y, offset.x);
                 
                 _clingCollider = _clingObject.GetComponent<CircleCollider2D>();
-                _radius = _clingCollider.radius * _clingObject.transform.lossyScale.x * 1.5f;
+                _radius = _clingCollider.radius * _clingObject.transform.lossyScale.x * 1.3f;
                 
                 _isOnlyGrounded = true;
                 StartCoroutine(GroundedDelay());

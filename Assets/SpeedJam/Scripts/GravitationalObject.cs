@@ -5,7 +5,7 @@ namespace SpeedJam
 {
     public class GravitationalObject : MonoBehaviour
     {
-        private static readonly int k_Blend = Shader.PropertyToID("Blend");
+        private static readonly int k_Blend = Shader.PropertyToID("_Blend");
         
         [field: SerializeField] public float ForceModifier { get;private set; }
         [field: SerializeField] public float GravitationalField { get; private set; }
