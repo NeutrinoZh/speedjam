@@ -10,28 +10,30 @@ namespace SpeedJam
     public class PlayerOnAir : MonoBehaviour
     {
         [SerializeField] private float _forceModifier;
-        
+
         private Player _player;
         private ListOfGravitationalObject _listOfObjects;
         private Rigidbody2D _rigidbody;
         private Controls _controls;
+        private FuelSlider _fuelSlider;
 
         [Inject]
-        public void Construct(ListOfGravitationalObject listOfObjects, Player player, Controls controls)
+        public void Construct(ListOfGravitationalObject listOfObjects, Player player, Controls controls, FuelSlider fuelSlider)
         {
             _listOfObjects = listOfObjects;
             _rigidbody = GetComponent<Rigidbody2D>();
             _player = player;
-            _controls = controls;   
+            _controls = controls;
+            _fuelSlider = fuelSlider;
         }
 
         private void FixedUpdate()
         {
             if (_player.State != Player.CharacterState.OnAir)
                 return;
-            
+
             ApplyForces();
-            
+
             var moveDirection = _controls.Player.Move.ReadValue<Vector2>();
             if (
                 moveDirection.y > 0 &&
@@ -40,10 +42,11 @@ namespace SpeedJam
             {
                 _rigidbody.AddForce(-transform.up * _player.JetpackForce, ForceMode2D.Force);
                 _player.JetpackCharge -= _player.JetpackChargeConsumptionRate * Time.fixedDeltaTime;
+                _fuelSlider.ChangeFuelAmount(_player.JetpackCharge);
             }
-            else 
+            else
                 _rigidbody.AddForce(-_rigidbody.velocity.normalized * _player.Friction, ForceMode2D.Force);
-            
+
             var euler = transform.eulerAngles;
             var angularVelocity = -moveDirection.x * _player.AngularSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Euler(euler.x, euler.y, euler.z + angularVelocity);
@@ -55,17 +58,17 @@ namespace SpeedJam
             {
                 var diff = obj.transform.position - transform.position;
                 var distance = diff.magnitude;
-                
+
                 if (distance > obj.GravitationalField)
                     continue;
-                
+
                 var normal = diff.normalized;
 
                 var force = 1 / distance * normal;
                 force *= _forceModifier * obj.ForceModifier;
 
                 _rigidbody.AddForce(force, ForceMode2D.Force);
-            }   
+            }
         }
     }
 }
