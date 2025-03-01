@@ -15,16 +15,17 @@ namespace SpeedJam
         private ListOfGravitationalObject _listOfObjects;
         private Rigidbody2D _rigidbody;
         private Controls _controls;
-        private JetpackChargeSlider _jetpackChargeSlider;
+
+        private Vector2 _direction;
+        public Vector2 Direction => _direction;
 
         [Inject]
-        public void Construct(ListOfGravitationalObject listOfObjects, Player player, Controls controls, JetpackChargeSlider jetpackChargeSlider)
+        public void Construct(ListOfGravitationalObject listOfObjects, Player player, Controls controls)
         {
             _listOfObjects = listOfObjects;
             _rigidbody = GetComponent<Rigidbody2D>();
             _player = player;
             _controls = controls;
-            _jetpackChargeSlider = jetpackChargeSlider;
         }
 
         private void FixedUpdate()
@@ -34,9 +35,9 @@ namespace SpeedJam
 
             ApplyForces();
 
-            var moveDirection = _controls.Player.Move.ReadValue<Vector2>();
+            _direction = _controls.Player.Move.ReadValue<Vector2>();
             if (
-                moveDirection.y > 0 &&
+                _direction.y > 0 &&
                 _rigidbody.velocity.sqrMagnitude < _player.SqrMaxSpeed &&
                 _player.JetpackCharge > 0)
             {
@@ -47,7 +48,7 @@ namespace SpeedJam
                 _rigidbody.AddForce(-_rigidbody.velocity.normalized * _player.Friction, ForceMode2D.Force);
 
             var euler = transform.eulerAngles;
-            var angularVelocity = -moveDirection.x * _player.AngularSpeed * Time.deltaTime;
+            var angularVelocity = -_direction.x * _player.AngularSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Euler(euler.x, euler.y, euler.z + angularVelocity);
         }
 

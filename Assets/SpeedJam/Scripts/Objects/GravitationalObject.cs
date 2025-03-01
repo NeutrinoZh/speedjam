@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
 namespace SpeedJam
@@ -20,15 +21,18 @@ namespace SpeedJam
             set
             {
                 _spriteRenderer.material.SetFloat(k_Blend, 1 - value / MaxCharge);
+                _light.intensity = value / MaxCharge;
                 _charge = value;
             }
         }
 
         private SpriteRenderer _spriteRenderer;
+        private Light2D _light;
 
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _light = GetComponent<Light2D>();
 
             Charge = MaxCharge;
         }

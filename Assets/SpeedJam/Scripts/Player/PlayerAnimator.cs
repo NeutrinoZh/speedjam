@@ -9,7 +9,12 @@ namespace SpeedJam
         private Player _player;
         private PlayerExtraction _extraction;
         private PlayerOnGround _playerOnGround;
+        private PlayerOnAir _playerOnAir;
         private SpriteRenderer _sprite;
+        
+        private ParticleSystem _jetpackParticles;
+        private ParticleSystem.EmissionModule _emission;
+        private float _rateOverTime;
         
         private static readonly int k_velocity = Animator.StringToHash("velocity");
         private static readonly int k_absVelocity = Animator.StringToHash("absVelocity");
@@ -23,10 +28,20 @@ namespace SpeedJam
             _extraction = GetComponent<PlayerExtraction>();
             _sprite = GetComponent<SpriteRenderer>();
             _playerOnGround = GetComponent<PlayerOnGround>();
+            _playerOnAir = GetComponent<PlayerOnAir>();
+            
+            _jetpackParticles = GetComponentInChildren<ParticleSystem>();
+            _emission = _jetpackParticles.emission;
+            _rateOverTime = _emission.rateOverTime.constant;
         }
         
         private void Update()
         {
+            if (_player.State == Player.CharacterState.OnAir && _playerOnAir.Direction.y > 0 && _player.JetpackCharge > 0)
+                _emission.rateOverTime = _rateOverTime;
+            else
+                _emission.rateOverTime = 0;
+            
             if (_player.State == Player.CharacterState.OnGround)
                 _sprite.flipX = _playerOnGround.Direction.x > 0 || (!(_playerOnGround.Direction.x < 0) && _sprite.flipX);   
             
