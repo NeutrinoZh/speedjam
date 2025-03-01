@@ -779,7 +779,10 @@ MonoBehaviour:
   <SpeedOnGround>k__BackingField: 3
   <JumpImpulse>k__BackingField: 5
   <ColliderActivationDelay>k__BackingField: 0.5
-  <JetpackForce>k__BackingField: 10
+  <JetpackForce>k__BackingField: 0.2
+  <Friction>k__BackingField: 1
+  <AngularSpeed>k__BackingField: 30
+  <GroundedDelay>k__BackingField: 1
 --- !u!114 &1495630743
 MonoBehaviour:
   m_ObjectHideFlags: 0

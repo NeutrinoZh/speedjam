@@ -16,6 +16,8 @@ namespace SpeedJam
         private GravitationalObject _clingObject;
         private float _radius;
         private float _angle;
+
+        private bool _isOnlyGrounded = false;
         
         public GravitationalObject ClingObject
         {
@@ -27,6 +29,9 @@ namespace SpeedJam
                 var offset = (transform.position - _clingObject.transform.position);
                 _angle = Mathf.Atan2(offset.y, offset.x);
                 _radius = offset.magnitude;
+                
+                _isOnlyGrounded = true;
+                StartCoroutine(GroundedDelay());
             }
         }
         
@@ -38,34 +43,27 @@ namespace SpeedJam
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
         }
-
-        private void Awake()
-        {
-            _controls.Enable();
-        }
-
-        private void OnDestroy()
-        {
-            _controls.Disable();
-        }
-
+        
         private void Update()
         {
             if (_player.State != Player.CharacterState.OnGround)
                 return;
 
             var moveDirection = _controls.Player.Move.ReadValue<Vector2>();
+            
             MoveAroundCircle(-moveDirection.x);
+            if (moveDirection.y > 0 && !_isOnlyGrounded)
+                Jump();
+        }
 
-            if (moveDirection.y > 0)
-            {
-                _player.State = Player.CharacterState.OnAir;
+        private void Jump()
+        {
+            _player.State = Player.CharacterState.OnAir;
                 
-                var direction = (transform.position - _clingObject.transform.position).normalized;
-                _rigidbody.AddForce(direction * _player.JumpImpulse, ForceMode2D.Impulse);
+            var direction = (transform.position - _clingObject.transform.position).normalized;
+            _rigidbody.AddForce(direction * _player.JumpImpulse, ForceMode2D.Impulse);
                 
-                StartCoroutine(ColliderActivation());
-            }
+            StartCoroutine(ColliderActivation());
         }
 
         private void MoveAroundCircle(float direction)
@@ -84,6 +82,12 @@ namespace SpeedJam
             _collider.enabled = false;
             yield return new WaitForSeconds(_player.ColliderActivationDelay);
             _collider.enabled = true;
+        }
+
+        private IEnumerator GroundedDelay()
+        {
+            yield return new WaitForSeconds(_player.GroundedDelay);
+            _isOnlyGrounded = false;
         }
     }
 }
