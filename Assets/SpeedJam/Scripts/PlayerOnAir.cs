@@ -33,8 +33,14 @@ namespace SpeedJam
             ApplyForces();
             
             var moveDirection = _controls.Player.Move.ReadValue<Vector2>();
-            if (moveDirection.y > 0)
+            if (
+                moveDirection.y > 0 &&
+                _rigidbody.velocity.sqrMagnitude < _player.SqrMaxSpeed &&
+                _player.JetpackCharge > 0)
+            {
                 _rigidbody.AddForce(-transform.up * _player.JetpackForce, ForceMode2D.Force);
+                _player.JetpackCharge -= _player.JetpackChargeConsumptionRate * Time.fixedDeltaTime;
+            }
             else 
                 _rigidbody.AddForce(-_rigidbody.velocity.normalized * _player.Friction, ForceMode2D.Force);
             

@@ -49,6 +49,13 @@ namespace SpeedJam
             if (_player.State != Player.CharacterState.OnGround)
                 return;
 
+            if (_clingObject.Charge > 0 && _player.JetpackCharge < _player.MaxJetpackCharge)
+            {
+                var changeValue = _player.JetpackChargeRefuelingRate * Time.deltaTime;
+                _player.JetpackCharge = Mathf.Clamp(_player.JetpackCharge + changeValue, 0, _player.MaxJetpackCharge);
+                _clingObject.Charge = Mathf.Clamp(_clingObject.Charge - changeValue, 0, 1000);
+            }
+
             var moveDirection = _controls.Player.Move.ReadValue<Vector2>();
             
             MoveAroundCircle(-moveDirection.x);

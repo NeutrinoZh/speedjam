@@ -498,8 +498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8948a035a8948b4a88a3ef01f79d9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forceModifier: 5
-  _gravitationalField: 5
+  <ForceModifier>k__BackingField: 8
+  <GravitationalField>k__BackingField: 5
+  <Charge>k__BackingField: 5
 --- !u!58 &1413679352
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -777,12 +778,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <SpeedOnGround>k__BackingField: 3
-  <JumpImpulse>k__BackingField: 5
+  <JumpImpulse>k__BackingField: 1
   <ColliderActivationDelay>k__BackingField: 0.5
-  <JetpackForce>k__BackingField: 0.2
+  <JetpackForce>k__BackingField: 5
   <Friction>k__BackingField: 1
   <AngularSpeed>k__BackingField: 30
-  <GroundedDelay>k__BackingField: 1
+  <GroundedDelay>k__BackingField: 0.4
+  <MaxSpeed>k__BackingField: 5
+  <MaxJetpackCharge>k__BackingField: 10
+  <JetpackChargeConsumptionRate>k__BackingField: 1
+  <JetpackChargeRefuelingRate>k__BackingField: 2
 --- !u!114 &1495630743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,8 +944,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8948a035a8948b4a88a3ef01f79d9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forceModifier: 5
-  _gravitationalField: 5
+  <ForceModifier>k__BackingField: 8
+  <GravitationalField>k__BackingField: 5
+  <Charge>k__BackingField: 5
 --- !u!58 &2105972167
 CircleCollider2D:
   m_ObjectHideFlags: 0
