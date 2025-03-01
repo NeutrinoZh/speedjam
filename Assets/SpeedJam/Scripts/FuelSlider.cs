@@ -1,24 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace SpeedJam
 {
     public class FuelSlider : MonoBehaviour
     {
-        [SerializeField] private int _maxFuelAmount;
-
         private Slider _slider;
+        private Player _player;
 
-        public void ChangeFuelAmount(float value)
+        [Inject]
+        public void Construct(Player player)
         {
-            _slider.value = value;
+            _player = player;
+        }
+        
+        private void ChangeFuelAmount()
+        {
+            _slider.value = _player.JetpackCharge / _player.MaxJetpackCharge;
         }
 
         private void Awake()
         {
             _slider = GetComponent<Slider>();
-            _slider.maxValue = _maxFuelAmount;
-            _slider.value = _maxFuelAmount;
+        }
+
+        private void Start()
+        {
+            _player.OnChargeChange += ChangeFuelAmount;
+        }
+
+        private void OnDestroy()
+        {
+            _player.OnChargeChange -= ChangeFuelAmount;
         }
     }
 }

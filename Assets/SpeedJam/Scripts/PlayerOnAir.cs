@@ -42,7 +42,6 @@ namespace SpeedJam
             {
                 _rigidbody.AddForce(-transform.up * _player.JetpackForce, ForceMode2D.Force);
                 _player.JetpackCharge -= _player.JetpackChargeConsumptionRate * Time.fixedDeltaTime;
-                _fuelSlider.ChangeFuelAmount(_player.JetpackCharge);
             }
             else
                 _rigidbody.AddForce(-_rigidbody.velocity.normalized * _player.Friction, ForceMode2D.Force);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace SpeedJam
@@ -13,6 +14,8 @@ namespace SpeedJam
         
         public CharacterState State { get; set; } = CharacterState.OnAir;
 
+        public Action OnChargeChange = null; 
+
         [field: SerializeField] public float SpeedOnGround { get; private set; }
         [field: SerializeField] public float JumpImpulse { get; private set; }
         [field: SerializeField] public float ColliderActivationDelay { get; private set; }
@@ -23,9 +26,21 @@ namespace SpeedJam
         [field: SerializeField] public float MaxSpeed { get; private set; }
         [field: SerializeField] public float MaxJetpackCharge { get; private set; }
         [field: SerializeField] public float JetpackChargeConsumptionRate { get; private set; } 
-        [field: SerializeField] public float JetpackChargeRefuelingRate { get; private set; } 
+        [field: SerializeField] public float JetpackChargeRefuelingRate { get; private set; }
+
         
-        public float JetpackCharge { get; set; }
+        private float _jetpackCharge;
+        public float JetpackCharge
+        {
+            get => _jetpackCharge;
+            set
+            {
+                _jetpackCharge = value;
+                OnChargeChange?.Invoke();
+            }
+        }
+        
+
         public float SqrMaxSpeed => MaxSpeed * MaxSpeed;
             
         private Controls _controls;
