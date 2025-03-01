@@ -135,4 +135,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ForceModifier>k__BackingField: 8
   <GravitationalField>k__BackingField: 5
-  <MaxCharge>k__BackingField: 5
+  <MaxCharge>k__BackingField: 1
