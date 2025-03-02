@@ -14,8 +14,10 @@ namespace SpeedJam
         private GameOverController _gameOverController;
         private Controls _controls;
         private Transform _hud;
-        private Rigidbody2D _player;
+        private Rigidbody2D _rigidbody;
         private GlobalData _globalData;
+        private Player _player;
+        
 
         [Inject]
         public void Construct(ScoreManager scoreManager,  EndGameCanvas endGameCanvas, Controls controls, TimerLabel timerLabel, Player player, GameOverController gameOverController, GlobalData globalData)
@@ -24,7 +26,8 @@ namespace SpeedJam
             _endGameCanvas = endGameCanvas;
             _controls = controls;
             _hud = timerLabel.transform.parent;
-            _player = player.GetComponent<Rigidbody2D>();
+            _player = player;
+            _rigidbody = player.GetComponent<Rigidbody2D>();
             _gameOverController = gameOverController;
             _globalData = globalData;
         }
@@ -43,12 +46,18 @@ namespace SpeedJam
 
         private void Restart(InputAction.CallbackContext ctx)
         {
+            if (!_scoreManager.Finished)
+                return;
+            
             _endGameCanvas.BlackScreenAnimate();
             _gameOverController.PlayerDie();   
         }
 
         private void NextLevel(InputAction.CallbackContext ctx)
         {
+            if (!_scoreManager.Finished)
+                return;
+            
             StartCoroutine(NextLevelAnimation());
         }
 
@@ -68,9 +77,14 @@ namespace SpeedJam
         
         private void Update()
         {
-            if (Keyboard.current.cKey.wasPressedThisFrame)
+        // #if UNITY_EDITOR
+            if (Keyboard.current.cKey.wasPressedThisFrame && _globalData.CurrentLevel != 2)
+            {
                 _scoreManager.Score += 1;
-                
+                _player.OnCollectStar?.Invoke();
+            }
+// #endif    
+            
             if (_scoreManager.Score != _scoreManager.MaxScore)
                 return;
 
@@ -79,8 +93,8 @@ namespace SpeedJam
             
             _scoreManager.Finished = true;
             _scoreManager.FinishTime = DateTime.Now;
-            _player.isKinematic = true;
-            _player.velocity = Vector2.zero;
+            _rigidbody.isKinematic = true;
+            _rigidbody.velocity = Vector2.zero;
             _endGameCanvas.gameObject.SetActive(true);
             _hud.gameObject.SetActive(false);
         }

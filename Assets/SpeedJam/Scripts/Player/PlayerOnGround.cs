@@ -36,8 +36,6 @@ namespace SpeedJam
                 _clingCollider = _clingObject.GetComponent<CircleCollider2D>();
                 _radius = _clingCollider.radius * _clingObject.transform.lossyScale.x * 1.3f;
                 
-                // Tween.LocalRotation(transform, Quaternion.Euler(0f, 0f, _angle * Mathf.Rad2Deg - 90), _player.RotationAnimationDuration);
-                
                 _isOnlyGrounded = true;
                 StartCoroutine(GroundedDelay());
             }
@@ -51,6 +49,22 @@ namespace SpeedJam
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
         }
+
+        private void Start()
+        {
+            _controls.Player.Jump.performed += HandleJump;
+        }
+
+        private void OnDestroy()
+        {
+            _controls.Player.Jump.performed -= HandleJump;
+        }
+
+        private void HandleJump(InputAction.CallbackContext ctx)
+        {
+             if (!_isOnlyGrounded && _player.State == Player.CharacterState.OnGround)
+                 Jump();
+        }
         
         private void Update()
         {
@@ -60,8 +74,8 @@ namespace SpeedJam
             _direction = _controls.Player.Move.ReadValue<Vector2>();
             
             MoveAroundCircle(-_direction.x);
-            if (_direction.y > 0 && !_isOnlyGrounded)
-                Jump();
+            // if (_direction.y > 0 && !_isOnlyGrounded)
+            //     Jump();
         }
 
         private void Jump()
@@ -71,6 +85,7 @@ namespace SpeedJam
             var direction = (transform.position - _clingObject.transform.position).normalized;
             _rigidbody.AddForce(direction * _player.JumpImpulse, ForceMode2D.Impulse);
                 
+            _collider.enabled = false;
             StartCoroutine(ColliderActivation());
         }
 
