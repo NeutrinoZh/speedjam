@@ -16,10 +16,11 @@ namespace SpeedJam
         private ParticleSystem.EmissionModule _emission;
         private float _rateOverTime;
         
-        private static readonly int k_velocity = Animator.StringToHash("velocity");
-        private static readonly int k_absVelocity = Animator.StringToHash("absVelocity");
-        private static readonly int k_extractionInProgress = Animator.StringToHash("extractionInProgress");
-        private static readonly int k_onGround = Animator.StringToHash("onGround");
+        private static readonly int k_flyingAnimation = Animator.StringToHash("Base Layer.Flying");
+        private static readonly int k_runAnimation = Animator.StringToHash("Base Layer.Run");
+        private static readonly int k_extractionAnimation = Animator.StringToHash("Base Layer.Extraction");
+        private static readonly int k_idleAnimation = Animator.StringToHash("Base Layer.Idle");
+        private static readonly int k_extractionIdleAnimation = Animator.StringToHash("Base Layer.ExtractionIdle");
 
         private void Awake()
         {
@@ -43,12 +44,29 @@ namespace SpeedJam
                 _emission.rateOverTime = 0;
             
             if (_player.State == Player.CharacterState.OnGround)
-                _sprite.flipX = _playerOnGround.Direction.x > 0 || (!(_playerOnGround.Direction.x < 0) && _sprite.flipX);   
+                _sprite.flipX = _playerOnGround.Direction.x > 0 || (!(_playerOnGround.Direction.x < 0) && _sprite.flipX);
+            else 
+                _sprite.flipX = _playerOnAir.Direction.x > 0 || (!(_playerOnAir.Direction.x < 0) && _sprite.flipX);
             
-            _animator.SetFloat(k_velocity, _playerOnGround.Direction.x);
-            _animator.SetFloat(k_absVelocity, Mathf.Abs(_playerOnGround.Direction.x));
-            _animator.SetBool(k_extractionInProgress, _extraction.ExtractionInProgress);
-            _animator.SetBool(k_onGround, _player.State == Player.CharacterState.OnGround);
+            if (_player.State == Player.CharacterState.OnAir)
+                _animator.Play(k_flyingAnimation);
+            else
+            {
+                if (Mathf.Abs(_playerOnGround.Direction.x) > 0.1f)
+                {
+                    if (_extraction.ExtractionInProgress)
+                        _animator.Play(k_extractionAnimation);
+                    else 
+                        _animator.Play(k_runAnimation);
+                }
+                else
+                {
+                    if (_extraction.ExtractionInProgress)
+                        _animator.Play(k_extractionIdleAnimation);
+                    else 
+                        _animator.Play(k_idleAnimation);
+                }
+            }
         }
     }
 }
