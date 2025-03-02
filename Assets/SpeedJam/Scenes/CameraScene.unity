@@ -3108,8 +3108,7 @@ MonoBehaviour:
   <MaxSpeed>k__BackingField: 5
   <MaxJetpackCharge>k__BackingField: 10
   <JetpackChargeConsumptionRate>k__BackingField: 1
-  <JetpackChargeRefuelingRate>k__BackingField: 2
-  <RotationAnimationDuration>k__BackingField: 0.3
+  <JetpackChargeRefuelingRate>k__BackingField: 0.4
 --- !u!114 &1495630743
 MonoBehaviour:
   m_ObjectHideFlags: 0
