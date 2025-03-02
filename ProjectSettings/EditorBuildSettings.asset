@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SpeedJam/Scenes/Level2.unity
     guid: 824e7a3976087724fadfb17839b1e187
+  - enabled: 1
+    path: Assets/SpeedJam/Scenes/Level3.unity
+    guid: 4990b6648bb337f46bedf1fe9683c948
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d91ffcf7960a3d041a3b81b3fc78fc18, type: 3}

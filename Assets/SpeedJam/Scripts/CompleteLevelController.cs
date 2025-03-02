@@ -58,6 +58,8 @@ namespace SpeedJam
             
             yield return new WaitForSeconds(_endGameCanvas.EndGameBlackScreenDuration);
             
+            _controls.UI.Disable();
+            
             _globalData.CurrentLevel += 1;
             _globalData.CurrentLevel %= SceneManager.sceneCountInBuildSettings;
             
