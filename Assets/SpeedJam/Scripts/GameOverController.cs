@@ -1,6 +1,7 @@
 ﻿using PrimeTween;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -17,13 +18,15 @@ namespace SpeedJam
         [SerializeField] private Image _blackScreen;
         
         private Player _player;
+        private AdviceLabel _adviceLabel;
         private Rigidbody2D _rigidbody;
         private Controls _controls;
 
         [Inject]
-        public void Construct(Player player, Controls controls)
+        public void Construct(Player player, Controls controls, AdviceLabel adviceLabel)
         {
             _player = player;
+            _adviceLabel = adviceLabel;
             _controls = controls;
             _rigidbody = _player.GetComponent<Rigidbody2D>();
         }
@@ -47,16 +50,11 @@ namespace SpeedJam
 
         private void Update()
         {
-            if (_player.State != Player.CharacterState.OnAir)
-                return;
-
-            if (_player.JetpackCharge > 0.1f)
-                return;
-
-            if (_rigidbody.velocity.magnitude > 0.1f)
-                return;
-
-            PlayerDie();
+            bool showAdvice = _player.State == Player.CharacterState.OnAir &&
+                              _player.JetpackCharge < 0.1f &&
+                              _rigidbody.velocity.sqrMagnitude < 0.1f;
+            
+            _adviceLabel.gameObject.SetActive(showAdvice);
         }
 
         public void PlayerDie()

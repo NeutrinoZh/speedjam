@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace SpeedJam
@@ -15,12 +16,16 @@ namespace SpeedJam
         [SerializeField] private AudioClip _deathSound;
         [SerializeField] private AudioClip _deathBlackHoleSound;
         [SerializeField] private AudioClip _starCollect;
+        
         [SerializeField] private AudioClip _outOfFuelSound;
+        [SerializeField] private float _outOfFuelDelay;
         
         private PlayerOnGround _playerOnGround;
         private PlayerOnAir _playerOnAir;
         private Player _player;
         private PlayerExtraction _playerExtraction;
+        
+        private bool _canPlayOutOfFuel;
         
         private void Awake()
         {
@@ -49,7 +54,23 @@ namespace SpeedJam
         private void Land() => _defaultSource.PlayOneShot(_landSound);
         private void Jump() => _defaultSource.PlayOneShot(_jumpSound);
         private void StarCollect() => _defaultSource.PlayOneShot(_starCollect);
-        private void OutOfFuel() => _defaultSource.PlayOneShot(_outOfFuelSound);
+
+        private void OutOfFuel()
+        {
+            if (!_canPlayOutOfFuel)
+                return;
+            
+            _canPlayOutOfFuel = false;
+            _defaultSource.PlayOneShot(_outOfFuelSound);
+
+            StartCoroutine(CallWithDelay(() => _canPlayOutOfFuel = true, _outOfFuelDelay));
+        }
+
+        private IEnumerator CallWithDelay(Action action, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            action?.Invoke();
+        }
 
         private void Update()
         {

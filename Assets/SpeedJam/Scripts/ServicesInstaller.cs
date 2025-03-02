@@ -8,6 +8,7 @@ namespace SpeedJam
         [SerializeField] private Player _player;
         [SerializeField] private GameOverController _gameOverController;
         [SerializeField] private CameraController _cameraController;
+        [SerializeField] private AdviceLabel _adviceLabel;
         
         // ReSharper disable Unity.PerformanceAnalysis
         public override void InstallBindings()
@@ -18,6 +19,7 @@ namespace SpeedJam
             Container.Bind<ScoreManager>().FromInstance(new ScoreManager()).AsSingle();
             Container.Bind<GameOverController>().FromInstance(_gameOverController).AsSingle();
             Container.Bind<CameraController>().FromInstance(_cameraController).AsSingle();
+            Container.Bind<AdviceLabel>().FromInstance(_adviceLabel).AsSingle();
         }
     }
 }

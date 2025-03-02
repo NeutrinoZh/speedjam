@@ -5,6 +5,7 @@ using Zenject;
 namespace SpeedJam
 {
     public class ParallaxEffect: MonoBehaviour {
+        
         [SerializeField] private float _parallaxFactor;
         private Transform _target;
         private Vector3 _lastTargetPosition;
