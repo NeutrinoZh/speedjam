@@ -3103,7 +3103,7 @@ MonoBehaviour:
   <ColliderActivationDelay>k__BackingField: 0.2
   <JetpackForce>k__BackingField: 5
   <Friction>k__BackingField: 1
-  <AngularSpeed>k__BackingField: 30
+  <AngularSpeed>k__BackingField: 80
   <GroundedDelay>k__BackingField: 0.4
   <MaxSpeed>k__BackingField: 5
   <MaxJetpackCharge>k__BackingField: 10
