@@ -17,18 +17,22 @@ namespace SpeedJam
         [SerializeField] private float _blackScreenDuration;
         [SerializeField] private Image _blackScreen;
         
+        public float BlackScreenDuration => _blackScreenDuration;
+        
         private Player _player;
         private AdviceLabel _adviceLabel;
         private Rigidbody2D _rigidbody;
         private Controls _controls;
+        private GlobalData _globalData;
 
         [Inject]
-        public void Construct(Player player, Controls controls, AdviceLabel adviceLabel)
+        public void Construct(Player player, Controls controls, AdviceLabel adviceLabel, GlobalData globalData)
         {
             _player = player;
             _adviceLabel = adviceLabel;
             _controls = controls;
             _rigidbody = _player.GetComponent<Rigidbody2D>();
+            _globalData = globalData;
         }
 
         private void Start()
@@ -64,10 +68,10 @@ namespace SpeedJam
             
             StartCoroutine(GameOverAnimation(() =>
             {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(_globalData.CurrentLevel);
             }));
         }
-
+        
         private IEnumerator GameOverAnimation(Action callback)
         {
             if (!_player.gameObject.activeSelf)

@@ -8,5 +8,7 @@ namespace SpeedJam
         public DateTime FinishTime { get; set; }
         public int Score { get; set; }
         public int MaxScore { get; set; }
+        public bool Finished { get; set; }
+        
     }
 }
