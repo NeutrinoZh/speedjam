@@ -12,7 +12,7 @@ namespace SpeedJam
         [SerializeField] private SpriteRenderer _circlePrefab;
         [SerializeField] private Bounds _bounds;
         [SerializeField] private int _count;
-        
+
         private void Start()
         {
             for (int i = 0; i < _count; ++i)

@@ -47,9 +47,6 @@ namespace SpeedJam
 
         private void Update()
         {
-            if (!_player.gameObject.activeSelf)
-                return;
-            
             if (_player.State != Player.CharacterState.OnAir)
                 return;
 
@@ -64,6 +61,9 @@ namespace SpeedJam
 
         public void PlayerDie()
         {
+            if (!_player.gameObject.activeSelf)
+                return;
+            
             StartCoroutine(GameOverAnimation(() =>
             {
                 SceneManager.LoadScene(0);
@@ -72,6 +72,9 @@ namespace SpeedJam
 
         private IEnumerator GameOverAnimation(Action callback)
         {
+            if (!_player.gameObject.activeSelf)
+                yield break;
+            
             var deadPlayer = Instantiate(_deadPlayerPrefab);
             deadPlayer.position = _player.transform.position;   
             

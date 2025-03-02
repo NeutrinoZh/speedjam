@@ -25,7 +25,7 @@ namespace SpeedJam
 
                 var circle = Instantiate(_planetPrefab, transform, true);
                 circle.transform.position = position;
-                circle.sprite = _sprites[Random.Range(0, _sprites.Count)];
+                circle.sprite = _sprites[i];
                 
                 var radius = Random.Range(_rangeOfRadius.x, _rangeOfRadius.y);
                 circle.transform.localScale = new Vector3(radius, radius, 1);
