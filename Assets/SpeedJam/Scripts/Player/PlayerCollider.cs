@@ -8,11 +8,13 @@ namespace SpeedJam
         private Player _player;
         private PlayerOnGround _playerOnGround;
         private ScoreManager _scoreManager;
+        private GameOverController _gameOverController;
 
         [Inject]
-        public void Construct(ScoreManager scoreManager)
+        public void Construct(ScoreManager scoreManager, GameOverController gameOverController)
         {
             _scoreManager = scoreManager;
+            _gameOverController = gameOverController;
         }
 
         private void Awake()
@@ -25,7 +27,7 @@ namespace SpeedJam
         {
             if (obj.IsTrap)
             {
-                Debug.Log("Die");
+                _gameOverController.PlayerDie();
                 return;
             }
 
@@ -37,6 +39,8 @@ namespace SpeedJam
         {
             _scoreManager.Score += 1;
             Destroy(star.gameObject);   
+            
+            _player.OnCollectStar?.Invoke();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -55,6 +59,9 @@ namespace SpeedJam
 
             if (collision.transform.TryGetComponent(out GravitationalObject obj))
                 Cling(obj);
+            
+            if (collision.transform.GetComponentInParent<WorldBounds>() != null)
+                _gameOverController.PlayerDie();
         }
     }
 }

@@ -3,21 +3,21 @@ using Zenject;
 
 namespace SpeedJam
 {
-    public class SetupListObject : MonoBehaviour
+    public class SetupListGravitationalObject : MonoBehaviour
     {
-        private ListOfGravitationalObject _listOfObjects;
+        private ListsOfObjects _listsOfObjects;
         
         [Inject]
-        public void Construct(ListOfGravitationalObject listOfObjects)
+        public void Construct(ListsOfObjects listsOfObjects)
         {
-            _listOfObjects = listOfObjects;
+            _listsOfObjects = listsOfObjects;
         }
 
         private void Awake()
         {
             foreach (Transform item in transform)
                 if (item.TryGetComponent(out GravitationalObject obj))
-                    _listOfObjects.Objects.Add(obj);
+                    _listsOfObjects.GravitationalObjects.Add(obj);
             
             Destroy(this);
         }

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace SpeedJam
 {
-    public class Timer : MonoBehaviour
+    public class TimerLabel : MonoBehaviour
     {
         private TextMeshProUGUI _timerLabel;
         private ScoreManager _scoreManager;

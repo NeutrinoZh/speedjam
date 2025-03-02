@@ -12,7 +12,7 @@ namespace SpeedJam
         [SerializeField] private float _forceModifier;
 
         private Player _player;
-        private ListOfGravitationalObject _listOfObjects;
+        private ListsOfObjects _listsOfObjects;
         private Rigidbody2D _rigidbody;
         private Controls _controls;
 
@@ -20,9 +20,9 @@ namespace SpeedJam
         public Vector2 Direction => _direction;
 
         [Inject]
-        public void Construct(ListOfGravitationalObject listOfObjects, Player player, Controls controls)
+        public void Construct(ListsOfObjects listsOfObjects, Player player, Controls controls)
         {
-            _listOfObjects = listOfObjects;
+            _listsOfObjects = listsOfObjects;
             _rigidbody = GetComponent<Rigidbody2D>();
             _player = player;
             _controls = controls;
@@ -54,7 +54,7 @@ namespace SpeedJam
 
         private void ApplyForces()
         {
-            foreach (GravitationalObject obj in _listOfObjects.Objects)
+            foreach (GravitationalObject obj in _listsOfObjects.GravitationalObjects)
             {
                 var diff = obj.transform.position - transform.position;
                 var distance = diff.magnitude;

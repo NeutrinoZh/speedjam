@@ -21,7 +21,10 @@ namespace SpeedJam
             set
             {
                 _spriteRenderer.material.SetFloat(k_Blend, 1 - value / MaxCharge);
-                _light.intensity = value / MaxCharge;
+                
+                if (_light)
+                    _light.intensity = value / MaxCharge;
+                
                 _charge = value;
             }
         }

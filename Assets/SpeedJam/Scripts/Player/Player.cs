@@ -14,6 +14,7 @@ namespace SpeedJam
         
         public Action OnChargeChange = null;
         public Action OnChangeState = null;
+        public Action OnCollectStar = null;
 
         [field: SerializeField] public float SpeedOnGround { get; private set; }
         [field: SerializeField] public float JumpImpulse { get; private set; }
@@ -62,7 +63,7 @@ namespace SpeedJam
         
         private void Awake()
         {
-            JetpackCharge = MaxJetpackCharge;
+            JetpackCharge = MaxJetpackCharge / 4;
             
             _controls.Enable();
         }
