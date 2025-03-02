@@ -45,9 +45,6 @@ namespace SpeedJam
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (_player.State != Player.CharacterState.OnAir)
-                return;
-
             if (collision.transform.TryGetComponent(out Star star)) 
                 CollectStar(star);
         }

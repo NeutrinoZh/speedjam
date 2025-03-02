@@ -2568,9 +2568,9 @@ Transform:
   - {fileID: 626583349}
   - {fileID: 378717082}
   - {fileID: 405216586}
+  - {fileID: 1239731976}
   - {fileID: 209047308}
   - {fileID: 1178096094022259111}
-  - {fileID: 1239731976}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &740261541
@@ -3248,6 +3248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1239731976}
+  - component: {fileID: 1239731977}
   m_Layer: 0
   m_Name: ListOfSatellite
   m_TagString: Untagged
@@ -3270,6 +3271,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 740261540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1239731977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239731975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46bec47161043104b9e653872fc89cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _satellites:
+  - {fileID: 5501618561957514432, guid: 2430cb8157b633643b57dc0c05f41cef, type: 3}
+  _bounds:
+    m_Center: {x: 8, y: 10, z: 0}
+    m_Extent: {x: 30, y: 30, z: 0}
+  _satelliteCount: 10
 --- !u!1001 &1285091668
 PrefabInstance:
   m_ObjectHideFlags: 0

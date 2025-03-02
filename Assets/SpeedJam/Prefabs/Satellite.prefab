@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5501618561957514432}
   - component: {fileID: 6657068458037511632}
+  - component: {fileID: -906760172405234240}
   m_Layer: 0
   m_Name: Satellite
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 744b703190b5602498ce8fb4e7106f82, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,3 +85,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-906760172405234240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7888969920383080079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b47ee2d4f9b4c0389425ceb913419b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rangeOfSpeed: {x: 0.2, y: 1}
+  _bounds:
+    m_Center: {x: 8, y: 10, z: 0}
+    m_Extent: {x: 50, y: 50, z: 0}
