@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ForceModifier>k__BackingField: 9
   <GravitationalField>k__BackingField: 4
-  <MaxCharge>k__BackingField: 1
+  <MaxCharge>k__BackingField: 0
   <IsTrap>k__BackingField: 0
 --- !u!114 &3280498392618647631
 MonoBehaviour:
@@ -287,19 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1d0d4a932e09645bd0f1433083dbc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spline:
-    m_EditModeType: 1
-    m_Knots: []
-    m_MetaData: []
-    m_Closed: 0
-    m_IntData:
-      m_Data: []
-    m_FloatData:
-      m_Data: []
-    m_Float4Data:
-      m_Data: []
-    m_ObjectData:
-      m_Data: []
+  _speed: 0
+  _splineContainer: {fileID: 0}
+  _splineIndex: 0
 --- !u!1 &7279769490319122207
 GameObject:
   m_ObjectHideFlags: 0

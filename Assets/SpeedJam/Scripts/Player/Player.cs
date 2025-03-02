@@ -14,7 +14,11 @@ namespace SpeedJam
         
         public Action OnChargeChange = null;
         public Action OnChangeState = null;
+        
         public Action OnCollectStar = null;
+        public Action OnLand = null;
+        public Action OnJump = null;
+        public Action OnDeath = null;
 
         [field: SerializeField] public float SpeedOnGround { get; private set; }
         [field: SerializeField] public float JumpImpulse { get; private set; }
@@ -34,6 +38,12 @@ namespace SpeedJam
             get => _state;
             set
             {
+                if (_state != value && value == CharacterState.OnGround)
+                    OnLand?.Invoke();
+                
+                if (_state != value && value == CharacterState.OnAir)
+                    OnJump?.Invoke();
+                    
                 _state = value;
                 OnChangeState?.Invoke();
             }
