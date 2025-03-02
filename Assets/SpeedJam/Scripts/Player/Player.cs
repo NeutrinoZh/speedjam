@@ -19,6 +19,7 @@ namespace SpeedJam
         public Action OnLand = null;
         public Action OnJump = null;
         public Action OnDeath = null;
+        public Action OutOfFuel = null;
 
         [field: SerializeField] public float SpeedOnGround { get; private set; }
         [field: SerializeField] public float JumpImpulse { get; private set; }

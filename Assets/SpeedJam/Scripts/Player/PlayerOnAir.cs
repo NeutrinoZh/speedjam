@@ -47,6 +47,9 @@ namespace SpeedJam
             else
                 _rigidbody.AddForce(-_rigidbody.velocity.normalized * _player.Friction, ForceMode2D.Force);
 
+            if (_direction.y > 0 && _player.JetpackCharge <= 0.05f)
+                _player.OutOfFuel?.Invoke();
+            
             var euler = transform.eulerAngles;
             var angularVelocity = -_direction.x * _player.AngularSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Euler(euler.x, euler.y, euler.z + angularVelocity);

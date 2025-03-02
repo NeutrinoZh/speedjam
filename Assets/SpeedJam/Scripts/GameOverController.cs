@@ -75,6 +75,8 @@ namespace SpeedJam
             if (!_player.gameObject.activeSelf)
                 yield break;
             
+            _player.OnDeath?.Invoke();
+            
             var deadPlayer = Instantiate(_deadPlayerPrefab);
             deadPlayer.position = _player.transform.position;   
             
