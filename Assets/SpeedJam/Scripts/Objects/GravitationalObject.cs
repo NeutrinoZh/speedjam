@@ -14,6 +14,7 @@ namespace SpeedJam
         [field: SerializeField] public bool IsTrap { get; private set; }
 
         private float _charge = 0f;
+        private float _maxIntensity = 1f;
 
         public float Charge
         {
@@ -23,7 +24,7 @@ namespace SpeedJam
                 _spriteRenderer.material.SetFloat(k_Blend, 1 - value / MaxCharge);
                 
                 if (_light)
-                    _light.intensity = value / MaxCharge;
+                    _light.intensity = Mathf.Lerp(0, _maxIntensity, value / MaxCharge);
                 
                 _charge = value;
             }
@@ -37,6 +38,9 @@ namespace SpeedJam
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _light = GetComponent<Light2D>();
 
+            if (_light)
+                _maxIntensity = _light.intensity;
+            
             Charge = MaxCharge;
         }
     }

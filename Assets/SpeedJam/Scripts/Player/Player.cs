@@ -27,7 +27,8 @@ namespace SpeedJam
         [field: SerializeField] public float MaxJetpackCharge { get; private set; }
         [field: SerializeField] public float JetpackChargeConsumptionRate { get; private set; } 
         [field: SerializeField] public float JetpackChargeRefuelingRate { get; private set; }
-
+        [field: SerializeField] public float RotationAnimationDuration { get; private set; }
+        
         private CharacterState _state = CharacterState.OnAir;
         public CharacterState State
         {

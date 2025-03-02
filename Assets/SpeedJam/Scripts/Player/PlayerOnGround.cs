@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrimeTween;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,6 +35,8 @@ namespace SpeedJam
                 
                 _clingCollider = _clingObject.GetComponent<CircleCollider2D>();
                 _radius = _clingCollider.radius * _clingObject.transform.lossyScale.x * 1.3f;
+                
+                // Tween.LocalRotation(transform, Quaternion.Euler(0f, 0f, _angle * Mathf.Rad2Deg - 90), _player.RotationAnimationDuration);
                 
                 _isOnlyGrounded = true;
                 StartCoroutine(GroundedDelay());
@@ -84,7 +87,8 @@ namespace SpeedJam
                       _radius * Mathf.Sin(_angle);
 
             transform.position = new Vector3(x, y, transform.position.z);
-            transform.rotation = Quaternion.Euler(0, 0, _angle * Mathf.Rad2Deg - 90);
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.Euler(0, 0, _angle * Mathf.Rad2Deg - 90), 0.1f);
         }
 
         private IEnumerator ColliderActivation()
