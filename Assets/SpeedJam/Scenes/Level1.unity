@@ -969,8 +969,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bounds:
-    m_Center: {x: 8, y: 10, z: 0}
-    m_Extent: {x: 10, y: 10, z: 10}
+    m_Center: {x: 8, y: 5, z: 0}
+    m_Extent: {x: 15, y: 15, z: 10}
   _cameraOffset: {x: 0, y: 0, z: -10}
   _cameraSpeed: 0.9
 --- !u!114 &519667493 stripped
@@ -2283,7 +2283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4136444782734264089, guid: 79dd029e764659d4dbc5859ceee4f847, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.9
+      value: -38.43
       objectReference: {fileID: 0}
     - target: {fileID: 5696883138820339739, guid: 79dd029e764659d4dbc5859ceee4f847, type: 3}
       propertyPath: m_Name
@@ -2291,7 +2291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8382659339887726728, guid: 79dd029e764659d4dbc5859ceee4f847, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.6
+      value: 16.2
       objectReference: {fileID: 0}
     - target: {fileID: 8382659339887726728, guid: 79dd029e764659d4dbc5859ceee4f847, type: 3}
       propertyPath: m_LocalPosition.y
