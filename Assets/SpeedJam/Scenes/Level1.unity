@@ -3271,6 +3271,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Env
       objectReference: {fileID: 0}
+    - target: {fileID: 7738073519758150691, guid: f39ea4a34e649d644963d98800bd97b8, type: 3}
+      propertyPath: _blackScreen
+      value: 
+      objectReference: {fileID: 1509481890}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
