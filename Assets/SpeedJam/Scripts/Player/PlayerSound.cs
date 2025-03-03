@@ -75,7 +75,7 @@ namespace SpeedJam
         private void Update()
         {
             _walkingSound.volume = _player.State == Player.CharacterState.OnGround && Mathf.Abs(_playerOnGround.Direction.x) > 0.01f ? 1f : 0f;
-            _flyingSound.volume = _player.State == Player.CharacterState.OnAir && Mathf.Abs(_playerOnAir.Direction.y) > 0.01f ? 1f : 0f;
+            _flyingSound.volume = _player.State == Player.CharacterState.OnAir && _player.JetpackCharge > 0.01f && Mathf.Abs(_playerOnAir.Direction.y) > 0.01f ? 1f : 0f;
             _extractorSound.volume = _playerExtraction.ExtractionInProgress ? 0.1f : 0f;
         }
     }

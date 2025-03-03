@@ -73,7 +73,7 @@ namespace SpeedJam
             _globalData.CurrentLevel += 1;
             _globalData.CurrentLevel %= SceneManager.sceneCountInBuildSettings;
             if (_globalData.CurrentLevel == 0)
-                _globalData.CurrentLevel = 1;
+                _globalData.CurrentLevel = 2;
             
             SceneManager.LoadScene(_globalData.CurrentLevel);
         }
@@ -112,7 +112,7 @@ namespace SpeedJam
 
         private void BestScoreUpdate()
         {
-            string dataRef = $"{DataRefs.bestScore}{_globalData.CurrentLevel}";
+            string dataRef = $"{DataRefs.bestScore}{_globalData.CurrentLevel - 1}";
             int score = (int)(_scoreManager.FinishTime - _scoreManager.StartTime).TotalMilliseconds;
             
             int bestScore = PlayerPrefs.GetInt(dataRef, int.MaxValue);

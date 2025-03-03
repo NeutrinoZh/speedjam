@@ -13,7 +13,7 @@ namespace SpeedJam
             set
             {
                 _currentLevel = value;
-                _leaderboardId = $"level{_currentLevel}";
+                _leaderboardId = $"level{_currentLevel - 1}";
             }
         }
 

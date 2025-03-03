@@ -83,6 +83,8 @@ namespace SpeedJam
             _player.State = Player.CharacterState.OnAir;
                 
             var direction = (transform.position - _clingObject.transform.position).normalized;
+            
+            _rigidbody.velocity = Vector2.zero;
             _rigidbody.AddForce(direction * _player.JumpImpulse, ForceMode2D.Impulse);
                 
             _collider.enabled = false;
