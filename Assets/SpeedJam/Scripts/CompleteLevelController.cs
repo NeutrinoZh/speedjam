@@ -80,13 +80,13 @@ namespace SpeedJam
         
         private void Update()
         {
-        // #if UNITY_EDITOR
-            if (Keyboard.current.cKey.wasPressedThisFrame && _globalData.CurrentLevel != 2)
+        #if UNITY_EDITOR
+            if (Keyboard.current.cKey.wasPressedThisFrame)
             {
                 _scoreManager.Score += 1;
                 _player.OnCollectStar?.Invoke();
             }
-// #endif    
+        #endif    
             
             if (_scoreManager.Score != _scoreManager.MaxScore)
                 return;
@@ -112,13 +112,14 @@ namespace SpeedJam
 
         private void BestScoreUpdate()
         {
+            string dataRef = $"{DataRefs.bestScore}{_globalData.CurrentLevel}";
             int score = (int)(_scoreManager.FinishTime - _scoreManager.StartTime).TotalMilliseconds;
             
-            int bestScore = PlayerPrefs.GetInt(DataRefs.bestScore, int.MaxValue);
+            int bestScore = PlayerPrefs.GetInt(dataRef, int.MaxValue);
             if (score < bestScore || bestScore == 0)
             {
                 bestScore = score;
-                PlayerPrefs.SetInt(DataRefs.bestScore, bestScore);
+                PlayerPrefs.SetInt(dataRef, bestScore);
             }
             
             _globalData.BestScore = bestScore;
