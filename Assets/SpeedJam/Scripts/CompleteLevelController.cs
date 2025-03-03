@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Unity.Services.Leaderboards;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -71,6 +72,8 @@ namespace SpeedJam
             
             _globalData.CurrentLevel += 1;
             _globalData.CurrentLevel %= SceneManager.sceneCountInBuildSettings;
+            if (_globalData.CurrentLevel == 0)
+                _globalData.CurrentLevel = 1;
             
             SceneManager.LoadScene(_globalData.CurrentLevel);
         }
@@ -88,15 +91,49 @@ namespace SpeedJam
             if (_scoreManager.Score != _scoreManager.MaxScore)
                 return;
 
+            if (_scoreManager.Finished)
+                return;
+
             _controls.Player.Disable();
             _controls.UI.Enable();
             
             _scoreManager.Finished = true;
             _scoreManager.FinishTime = DateTime.Now;
+            
+            BestScoreUpdate();
+            
             _rigidbody.isKinematic = true;
             _rigidbody.velocity = Vector2.zero;
             _endGameCanvas.gameObject.SetActive(true);
             _hud.gameObject.SetActive(false);
+            
+            UpdateLeaderboardEntries();
+        }
+
+        private void BestScoreUpdate()
+        {
+            int score = (int)(_scoreManager.FinishTime - _scoreManager.StartTime).TotalMilliseconds;
+            
+            int bestScore = PlayerPrefs.GetInt(DataRefs.bestScore, int.MaxValue);
+            if (score < bestScore || bestScore == 0)
+            {
+                bestScore = score;
+                PlayerPrefs.SetInt(DataRefs.bestScore, bestScore);
+            }
+            
+            _globalData.BestScore = bestScore;
+        }
+        
+        private async void UpdateLeaderboardEntries()
+        {
+            try
+            {
+                await LeaderboardsService.Instance.AddPlayerScoreAsync(_globalData.LeaderboardId, _globalData.BestScore);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
     }
 }

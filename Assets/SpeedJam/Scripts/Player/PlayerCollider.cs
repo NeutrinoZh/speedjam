@@ -38,6 +38,8 @@ namespace SpeedJam
         private void CollectStar(Star star)
         {
             _scoreManager.Score += 1;
+            
+            star.SpawnParticle();
             Destroy(star.gameObject);   
             
             _player.OnCollectStar?.Invoke();

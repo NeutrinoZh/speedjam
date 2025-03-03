@@ -36,7 +36,7 @@ namespace SpeedJam
                 );
         }
 
-        private void OnDestroy()
+        public void SpawnParticle()
         {
             Transform particle = Instantiate(_collectStarParticle, _particleParent, true);
             particle.position = transform.position;
