@@ -10,6 +10,7 @@ namespace SpeedJam
     {
         [SerializeField] private Image _blackScreen;
         [SerializeField] private float _blackScreenAnimationDuration;
+        [SerializeField] private LevelPanels _levelPanels;
         
         private Button _startButton;
         private GlobalData _globalData;
@@ -37,7 +38,7 @@ namespace SpeedJam
 
         private void Handle()
         {
-            _globalData.CurrentLevel = 2;
+            _globalData.CurrentLevel = _levelPanels.SelectedLevel + 2;
             Tween.Alpha(_blackScreen, 1f, _blackScreenAnimationDuration).OnComplete(() => SceneManager.LoadScene(_globalData.CurrentLevel));
         }
     }

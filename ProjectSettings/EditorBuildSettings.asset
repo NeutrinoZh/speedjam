@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/SpeedJam/Scenes/Auth.unity
+    guid: 1d338fa60444ed143a70307b4cc450a2
+  - enabled: 1
     path: Assets/SpeedJam/Scenes/MainMenu.unity
     guid: 0611226f87f966c40a0eb613956009da
   - enabled: 1
@@ -17,8 +20,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SpeedJam/Scenes/Level3.unity
     guid: 4990b6648bb337f46bedf1fe9683c948
-  - enabled: 1
-    path: Assets/SpeedJam/Scenes/Auth.unity
-    guid: 1d338fa60444ed143a70307b4cc450a2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d91ffcf7960a3d041a3b81b3fc78fc18, type: 3}

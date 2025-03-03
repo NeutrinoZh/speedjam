@@ -100,6 +100,8 @@ namespace SpeedJam
             _scoreManager.Finished = true;
             _scoreManager.FinishTime = DateTime.Now;
             
+            PlayerPrefs.SetInt(DataRefs.countOfOpenLevels, _globalData.CurrentLevel);
+            
             BestScoreUpdate();
             
             _rigidbody.isKinematic = true;
